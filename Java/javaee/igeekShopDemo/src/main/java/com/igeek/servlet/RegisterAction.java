@@ -2,8 +2,10 @@ package main.java.com.igeek.servlet;
 
 import main.java.com.igeek.bean.User;
 import main.java.com.igeek.service.UserService;
+import main.java.com.igeek.utils.MailUtils;
 import org.apache.commons.beanutils.BeanUtils;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.UUID;
 
 @WebServlet("/register.do")
 public class RegisterAction extends HttpServlet {
@@ -43,12 +46,26 @@ public class RegisterAction extends HttpServlet {
                     } else {
                         BeanUtils.setProperty(user, "sex", "女");
                     }
+                    // 新建uid
+                    String uid = UUID.randomUUID().toString().replaceAll("-", "");
+                    BeanUtils.setProperty(user,"uid",uid);
+                    // 新建激活code
+                    String code = UUID.randomUUID().toString().replaceAll("-", "");
+                    BeanUtils.setProperty(user,"code",code);
                     if (!userService.regUser(user)) {
                         request.setAttribute("regErrMsg", "注册失败");
                         request.getRequestDispatcher("/register.jsp").forward(request, response);
                     } else {
-                        String bean = request.getContextPath();
-                        response.sendRedirect(bean + "/login.jsp");
+//                        System.out.println(user);
+                        String emailMsg = "注册成功！请点击<a href=\"http://localhost:8088/igeekShopDemo/active.do?uid="+uid+"&code="+code+"\">http://localhost:8080/Shop/active.action</a>链接进行激活";
+                        try {
+                            MailUtils.sendMail(email,emailMsg);
+                            String bean = request.getContextPath();
+                            response.sendRedirect(bean + "/activation.jsp");
+                        } catch (MessagingException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }
             }

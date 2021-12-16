@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/cart.do")
+@WebServlet("/power/cart.do")
 public class CartAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,7 +20,7 @@ public class CartAction extends HttpServlet {
         HttpSession session = req.getSession();
         User loginUser = (User)session.getAttribute("loginUser");
         if (loginUser == null){
-            resp.sendRedirect("/igeekShop/cart.jsp");
+            resp.sendRedirect("/igeekShopDemo/cart.jsp");
         }else {
             ShoppingCart shoppingCart = scService.getScList(loginUser);
             req.setAttribute("shoppingCart",shoppingCart);

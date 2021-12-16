@@ -81,6 +81,13 @@ font {
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="telephone" class="col-sm-2 control-label">tel</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="telephone" name="telephone"
+								   placeholder="Telephone">
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">姓名</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="name" name="name"

@@ -22,11 +22,11 @@
 				<li><a href="login.jsp">登录</a></li>
 				<li><a href="register.jsp">注册</a></li>
 			</c:if>
-			<c:if test="${not empty loginUser}">
-				<li>欢迎,<a href="#" id="loginUserName">${loginUser.userName}</a>&nbsp;&nbsp;
-					<a href="logOut.do">注销</a></li>
+			<c:if test="${not empty sessionScope.loginUser}">
+				<li>欢迎,<a href="#" id="loginUserName">${sessionScope.loginUser.userName}</a>&nbsp;&nbsp;
+					<a href="power/logOut.do">注销</a></li>
 			</c:if>
-			<li><a href="cart.do">购物车</a></li>
+			<li><a href="power/cart.do">购物车</a></li>
 			<li><a href="order_list.jsp">我的订单</a></li>
 		</ol>
 	</div>

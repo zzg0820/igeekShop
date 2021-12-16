@@ -62,4 +62,26 @@ public class UserService {
         }
         return user;
     }
+
+    // 通过uid返回用户
+    public User findUserByUid(String uId){
+        User user = null;
+        try {
+            user = userImpl.findUserByUid(uId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    // 激活用户
+    public boolean activeUser(String uid){
+        int i = 0;
+        try {
+            i = userImpl.activeUser(uid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i>0;
+    }
 }

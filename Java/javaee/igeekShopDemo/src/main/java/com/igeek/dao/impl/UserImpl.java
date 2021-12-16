@@ -38,4 +38,18 @@ public class UserImpl implements UserIface {
                 user.getEmail(),user.getTelephone(),user.getBirthday(),user.getSex(),user.getState(),
                 user.getCode());
     }
+
+    @Override
+    public User findUserByUid(String uId) throws SQLException {
+        QueryRunner runner = new QueryRunner(DaoUtil.getDataSource());
+        String sql = "select * from user where uId = ?";
+        return runner.query(sql,new BeanHandler<>(User.class),uId);
+    }
+
+    @Override
+    public int activeUser(String uId) throws SQLException {
+        QueryRunner runner = new QueryRunner(DaoUtil.getDataSource());
+        String sql = "update user set state = 1 where uid = ?";
+        return runner.update(sql,uId);
+    }
 }

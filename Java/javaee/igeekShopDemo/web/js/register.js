@@ -86,6 +86,10 @@ $(function (){
                 email:true,
                 checkEmail:true
             },
+            telephone:{
+                required:true,
+                regrules:/^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+            },
             name:{
                 required:true
             },
@@ -114,6 +118,10 @@ $(function (){
                 required:"邮箱不能为空",
                 email:"必须符合邮箱格式",
                 checkEmail:"该邮箱已被注册"
+            },
+            telephone:{
+                required:"手机号码不能为空",
+                regrules:"必须符合手机号码格式",
             },
             name:{
                 required:"姓名不能为空"

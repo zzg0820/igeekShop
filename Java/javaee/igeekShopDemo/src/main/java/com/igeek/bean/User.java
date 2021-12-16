@@ -1,5 +1,4 @@
 package main.java.com.igeek.bean;
-import java.util.UUID;
 
 public class User {
     private String uid;
@@ -30,11 +29,10 @@ public class User {
     }
 
     public User() {
-        this.uid = UUID.randomUUID().toString().replace("-","");
     }
 
-    public User(String userName, String password, String name, String email, String telephone, String birthday, String sex, int state, String code) {
-        this.uid = UUID.randomUUID().toString().replace("-","");
+    public User(String uid, String userName, String password, String name, String email, String telephone, String birthday, String sex, int state, String code) {
+        this.uid = uid;
         this.userName = userName;
         this.password = password;
         this.name = name;

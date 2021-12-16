@@ -22,7 +22,7 @@ public class LoginAction extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remUserName = request.getParameter("remUserName");
-        System.out.println(remUserName);
+//        System.out.println(remUserName);
         String autoLogin = request.getParameter("autoLogin");
         if (userService.isLogin(username)){
             request.setAttribute("loginError","该用户尚未注册");
@@ -33,28 +33,41 @@ public class LoginAction extends HttpServlet {
                 request.setAttribute("loginError","用户名或密码不正确");
                 request.getRequestDispatcher("/login.jsp").forward(request,response);
             }else {
-                if (remUserName != null){
-                    if(remUserName.equals("on")){
-                        Cookie cookie = new Cookie("username",user.getUserName());
-                        Cookie cookie1 = new Cookie("remUserName","on");
-                        cookie.setPath(request.getContextPath());
-                        cookie1.setPath(request.getContextPath());
-                        cookie.setMaxAge(7*24*3600);
-                        cookie1.setMaxAge(7*24*3600);
-                        response.addCookie(cookie);
-                        response.addCookie(cookie1);
-                    }
+                if (user.getState()==0){
+                    request.setAttribute("loginError","该用户尚未激活,请先激活");
+                    request.getRequestDispatcher("/login.jsp").forward(request,response);
                 }else {
-                    Cookie[] cookies = request.getCookies();
-                    if (cookies != null){
-                        for (Cookie cookie:cookies){
-                            if (cookie.getName().equals("username")){
-                                cookie.setMaxAge(0);
-                                response.addCookie(cookie);
-                            }
-                            if (cookie.getName().equals("remUserName")){
-                                cookie.setMaxAge(0);
-                                response.addCookie(cookie);
+                    if (autoLogin != null) {
+                        if (autoLogin.equals("on")) {
+                            Cookie cookie = new Cookie("autoLogin", username);
+                            cookie.setPath(request.getContextPath());
+                            cookie.setMaxAge(7 * 24 * 3600);
+                            response.addCookie(cookie);
+                        }
+                    }
+                    if (remUserName != null){
+                        if(remUserName.equals("on")){
+                            Cookie cookie = new Cookie("username",user.getUserName());
+                            Cookie cookie1 = new Cookie("remUserName","on");
+                            cookie.setPath(request.getContextPath());
+                            cookie1.setPath(request.getContextPath());
+                            cookie.setMaxAge(7*24*3600);
+                            cookie1.setMaxAge(7*24*3600);
+                            response.addCookie(cookie);
+                            response.addCookie(cookie1);
+                        }
+                    }else {
+                        Cookie[] cookies = request.getCookies();
+                        if (cookies != null){
+                            for (Cookie cookie:cookies){
+                                if (cookie.getName().equals("username")){
+                                    cookie.setMaxAge(0);
+                                    response.addCookie(cookie);
+                                }
+                                if (cookie.getName().equals("remUserName")){
+                                    cookie.setMaxAge(0);
+                                    response.addCookie(cookie);
+                                }
                             }
                         }
                     }

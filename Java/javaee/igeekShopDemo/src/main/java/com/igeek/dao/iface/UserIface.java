@@ -16,4 +16,10 @@ public interface UserIface{
 
     // 注册用户
     public int regUser(User user) throws SQLException;
+
+    // 根据uid查找用户
+    public User findUserByUid(String uId) throws SQLException;
+
+    // 激活用户
+    public int activeUser(String uId) throws SQLException;
 }

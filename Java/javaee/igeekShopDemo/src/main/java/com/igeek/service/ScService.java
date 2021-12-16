@@ -80,7 +80,7 @@ public class ScService {
     public boolean addCartItem(User userByName,int num,Product proById) throws SQLException {
         // 构建对象
         ScWithItem cartByUid1 = scImpl.getCartByUid(userByName.getUid());
-        System.out.println(cartByUid1);
+//        System.out.println(cartByUid1);
         // 设置参数
         cartByUid1.setpId(proById.getpId());
         cartByUid1.setpName(proById.getpName());
@@ -90,38 +90,38 @@ public class ScService {
         // 添加物品
         int i1 = scImpl.addCartItem(cartByUid1);
         if (i1 == 1){
-            System.out.println("添加购物车成功");
+//            System.out.println("添加购物车成功");
             return true;
         }else {
-            System.out.println("添加购物车失败");
+//            System.out.println("添加购物车失败");
             return false;
         }
     }
 
     // 添加到购物车
     public boolean addShopCart(int pid, int num, User userByName){
-        System.out.println(pid+".."+num+".."+userByName.toString());
+//        System.out.println(pid+".."+num+".."+userByName.toString());
         try {
             // 根据pid获取商品详情
             Product proById = productImpl.getProById(pid);
-            System.out.println(proById.toString());
+//            System.out.println(proById.toString());
 
             ScWithItem cartByUid = scImpl.getCartByUid(userByName.getUid());
             if (cartByUid == null){
                 // 如果不存在购物车则新建购物车
                 int i = scImpl.addShoppingCart(userByName);
                 if (i == 1){
-                    System.out.println("新建购物车成功");
+//                    System.out.println("新建购物车成功");
                     boolean b = addCartItem(userByName, num, proById);
                     if (b){
-                        System.out.println("添加购物车成功");
+//                        System.out.println("添加购物车成功");
                         return true;
                     }else {
-                        System.out.println("添加购物车失败");
+//                        System.out.println("添加购物车失败");
                         return false;
                     }
                 }else {
-                    System.out.println("新建购物车失败");
+//                    System.out.println("新建购物车失败");
                     return false;
                 }
             }else {
@@ -130,21 +130,21 @@ public class ScService {
                 if (proById1 == null){
                     // 构建对象
                     ScWithItem cartByUid1 = scImpl.getCartByUid(userByName.getUid());
-                    System.out.println(cartByUid1);
+//                    System.out.println(cartByUid1);
                     // 设置参数
                     cartByUid1.setpId(proById.getpId());
                     cartByUid1.setpName(proById.getpName());
                     cartByUid1.setNum(num);
                     cartByUid1.setpImage(proById.getpImage());
                     cartByUid1.setShop_price(proById.getShop_price());
-                    System.out.println(cartByUid1);
+//                    System.out.println(cartByUid1);
                     // 添加物品
                     int i1 = scImpl.addCartItem(cartByUid1);
                     if (i1 == 1){
-                        System.out.println("添加购物车成功");
+//                        System.out.println("添加购物车成功");
                         return true;
                     }else {
-                        System.out.println("添加购物车失败");
+//                        System.out.println("添加购物车失败");
                         return false;
                     }
                 }else {
@@ -154,10 +154,10 @@ public class ScService {
                     proById2.setNum(num1+num);
                     int i = scImpl.updateNum(proById2);
                     if (i == 1){
-                        System.out.println("更新成功");
+//                        System.out.println("更新成功");
                         return true;
                     }else{
-                        System.out.println("更新失败");
+//                        System.out.println("更新失败");
                         return false;
                     }
                 }
@@ -188,7 +188,9 @@ public class ScService {
             ScWithItem cartByUid = scImpl.getCartByUid(loginUser.getUid());
             int i = scImpl.removeCartItem(cartByUid.getSid());
             int i1 = scImpl.removeShoppingCart(cartByUid.getSid());
-            if (i == 1 && i1 ==1){
+            System.out.println(i);
+            System.out.println(i1);
+            if (i > 0 && i1 > 0){
                 return true;
             }
         } catch (SQLException e) {
