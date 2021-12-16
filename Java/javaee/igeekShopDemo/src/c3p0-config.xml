@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<c3p0-config>
+	<default-config>
+		<!--配置文件的key是不能改的-->
+		<!--jdbcUrl:链接字符串-->
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/igeekShop?characterEncoding=utf-8</property>
+		<!--driverClass:驱动类 字符串-->
+		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+		<!--数据库链接用户名-->
+		<property name="user">root</property>
+		<!--链接密码-->
+		<property name="password">123456</property>
+		<!--checkoutTimeout:获取链接对象的超时时间 毫秒-->
+		<property name="checkoutTimeout">30000</property>
+		<!--initialPoolSize：初始连接池中链接的数量-->
+		<property name="initialPoolSize">15</property>
+		<!--maxIdleTime：连接对象最长存活时间   单位是秒-->
+		<property name="maxIdleTime">30</property>
+		<!--maxPoolSize：连接池最大的连接数-->
+		<property name="maxPoolSize">100</property>
+		<!--minPoolSize：连接池中最少保留的链接对象数-->
+		<property name="minPoolSize">10</property>
+		<!--当链接数不够时，一次新增的连接数-->
+		<property name="acquireIncrement">5</property>
+		<!--maxStatements：处理器对象的数量-->
+		<property name="maxStatements">200</property>
+	</default-config>
+
+</c3p0-config>
+
